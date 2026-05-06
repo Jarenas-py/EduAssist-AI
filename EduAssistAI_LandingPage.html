@@ -1,0 +1,268 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EduAssist AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#a8b8ff",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#003c70",
+                        "outline": "#757684",
+                        "on-surface": "#121c28",
+                        "outline-variant": "#c4c5d5",
+                        "on-secondary-fixed": "#001c39",
+                        "on-background": "#121c28",
+                        "surface": "#f8f9ff",
+                        "tertiary": "#2d363a",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#3755c3",
+                        "surface-container-highest": "#d9e3f4",
+                        "inverse-primary": "#b8c4ff",
+                        "tertiary-fixed": "#dbe4ea",
+                        "on-secondary-fixed-variant": "#004883",
+                        "surface-container-high": "#dfe9fa",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#173bab",
+                        "surface-variant": "#d9e3f4",
+                        "on-primary-fixed": "#001453",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "inverse-surface": "#27313e",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "primary": "#00288e",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#64a8fe",
+                        "on-tertiary-container": "#b3bcc2",
+                        "on-tertiary-fixed": "#141d21",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#444653",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#eef4ff",
+                        "primary-fixed": "#dde1ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-container": "#434c51",
+                        "surface-dim": "#d1dbec",
+                        "secondary": "#0060ac",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "primary-container": "#1e40af",
+                        "background": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#3f484d",
+                        "tertiary-fixed-dim": "#bfc8ce",
+                        "secondary-fixed": "#d4e3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "2rem",
+                        "2xl": "3rem",
+                        "md": "1rem",
+                        "lg": "1.5rem",
+                        "gutter": "1rem",
+                        "margin-desktop": "2.5rem",
+                        "base": "4px",
+                        "xs": "0.25rem",
+                        "margin-mobile": "1rem",
+                        "sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Public Sans"],
+                        "h2": ["Public Sans"],
+                        "caption": ["Public Sans"],
+                        "h1": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["0.875rem", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "h2": ["1.5rem", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "caption": ["0.75rem", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "h1": ["2.25rem", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["1.125rem", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["1rem", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col items-center overflow-x-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-50 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md shadow-sm dark:shadow-none flex justify-between items-center px-margin-desktop h-16 max-w-[1280px] mx-auto">
+<div class="flex items-center gap-sm cursor-pointer">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: &quot;FILL&quot; 1;">auto_awesome</span>
+<a href="EduAssistAI_LandingPage.html"><span class="font-h1 text-h2 font-bold text-primary dark:text-inverse-primary tracking-tight">EduAssist AI</span></a>
+</div>
+<div class="flex items-center gap-md">
+<button class="font-label-md text-label-md text-primary dark:text-inverse-primary hover:bg-surface-container-high px-lg py-sm rounded-lg transition-colors duration-200 active:scale-95">Log In</button>
+<a href="EduAssistAI_Register.html">
+	<button class="font-label-md text-label-md bg-primary text-on-primary hover:bg-primary/90 px-lg py-sm rounded-lg shadow-sm transition-all duration-200 active:scale-95">Register</button></a>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-[1280px] mx-auto px-margin-desktop py-2xl flex flex-col gap-2xl">
+<!-- Hero Section -->
+<section class="flex flex-col items-center justify-center text-center gap-lg max-w-3xl mx-auto py-2xl">
+<div class="bg-surface-container-low px-md py-xs rounded-full border border-surface-variant flex items-center gap-sm mb-sm animate-fade-in-up">
+<span class="material-symbols-outlined text-secondary text-sm">bolt</span>
+<span class="font-label-md text-label-md text-secondary">AI-Powered Efficiency</span>
+</div>
+<h1 class="font-h1 text-h1 text-on-background tracking-tight">What do you need to create?</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Describe your lesson plan, narrative report, or proposal context below. Our AI assistant will instantly generate a structured DepEd standard document tailored to your needs.
+            </p>
+<div class="w-full relative mt-lg group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary-container to-secondary-container rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
+<div class="relative bg-surface rounded-xl shadow-[0px_4px_24px_rgba(0,0,0,0.06)] border border-surface-variant p-md flex flex-col gap-sm transition-all duration-300 group-focus-within:border-primary group-focus-within:ring-1 group-focus-within:ring-primary">
+<textarea class="w-full bg-transparent border-none resize-none outline-none font-body-lg text-body-lg text-on-surface placeholder:text-outline-variant min-h-[120px] focus:ring-0 p-sm" placeholder="e.g., 'Draft a Daily Lesson Log for Grade 8 Science focusing on the Law of Inertia, including a simple hands-on activity and assessment...'"></textarea>
+<div class="flex justify-between items-center border-t border-surface-variant pt-sm">
+<div class="flex gap-xs text-outline">
+<button class="p-sm rounded-lg hover:bg-surface-container hover:text-primary transition-colors tooltip-trigger" title="Attach Document"><span class="material-symbols-outlined text-xl">attach_file</span></button>
+<button class="p-sm rounded-lg hover:bg-surface-container hover:text-primary transition-colors tooltip-trigger" title="Voice Input"><span class="material-symbols-outlined text-xl">mic</span></button>
+</div>
+<a href="EduAssistAI_DocumentPreview.html">
+<button class="bg-primary text-on-primary hover:bg-primary/90 font-label-md text-label-md px-xl py-sm rounded-lg shadow-sm flex items-center gap-sm transition-all active:scale-95">
+                            Generate Document
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button></a>
+</div>
+</div>
+</div>
+</section>
+<!-- Templates Section (Bento Grid Style) -->
+<section class="flex flex-col gap-lg mt-xl">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-h2 text-h2 text-on-background">DepEd Standard Templates</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Start from predefined structures aligned with regional guidelines.</p>
+</div>
+<button class="text-primary font-label-md text-label-md hover:underline flex items-center gap-xs"></button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Template Card 1 -->
+<div class="bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary-container/20 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="bg-primary-container text-on-primary-container w-12 h-12 rounded-lg flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">menu_book</span>
+</div>
+<h3 class="font-h2 text-lg font-semibold text-on-background mb-xs group-hover:text-primary transition-colors">Daily Lesson Log (DLL)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">Standard DepEd format with sections for Objectives, Content, Learning Resources, and Procedures.</p>
+</div>
+<!-- Template Card 2 -->
+<div class="bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary-container/20 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="bg-secondary-container text-on-secondary-container w-12 h-12 rounded-lg flex items-center justify-center mb-md group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">description</span>
+</div>
+<h3 class="font-h2 text-lg font-semibold text-on-background mb-xs group-hover:text-secondary transition-colors">Narrative Report</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">Structured format for summarizing events, seminars, or quarterly accomplishments with visual placeholders.</p>
+</div>
+<!-- Template Card 3 -->
+<div class="bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-surface-tint/10 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="bg-surface-container-highest text-primary w-12 h-12 rounded-lg flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">assignment</span>
+</div>
+<h3 class="font-h2 text-lg font-semibold text-on-background mb-xs group-hover:text-primary transition-colors">Activity Proposal</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">Formal template detailing rationale, objectives, methodology, and budget requirements for school events.</p>
+</div>
+<!-- Template Card 4 -->
+<div class="bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-tertiary-container/20 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="bg-tertiary-container text-on-tertiary-container w-12 h-12 rounded-lg flex items-center justify-center mb-md group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">account_balance</span>
+</div>
+<h3 class="font-h2 text-lg font-semibold text-on-background mb-xs group-hover:text-tertiary transition-colors">SALN Form</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">Guided assistance for correctly filling out the annual Statement of Assets, Liabilities, and Net Worth.</p>
+</div>
+</div>
+</section>
+<!-- Features Section (Asymmetric Layout) -->
+<section class="mt-2xl mb-xl">
+<div class="text-center mb-xl">
+<h2 class="font-h1 text-h1 text-on-background mb-sm">Why EduAssist AI?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Designed specifically for the workflow of educators, reducing administrative burden so you can focus on teaching.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md auto-rows-[minmax(180px,auto)]">
+<!-- Feature 1: Large Span -->
+<div class="md:col-span-8 bg-surface rounded-xl border border-surface-variant p-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute -right-10 -bottom-10 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[150px]" style="font-variation-settings: &quot;FILL&quot; 1;">forum</span>
+</div>
+<div class="relative z-10 flex flex-col h-full justify-center w-2/3">
+<div class="bg-primary/10 text-primary w-max px-sm py-xs rounded-md mb-md font-label-md text-xs uppercase tracking-wider font-bold">Core Feature</div>
+<h3 class="font-h1 text-2xl font-bold text-on-background mb-sm">Dynamic AI Assistant</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Engage in a conversational interface to iteratively build and perfect your documents. Ask questions, request specific formatting changes, or get suggestions for improving your lesson plans based on the latest pedagogical strategies.</p>
+</div>
+</div>
+<!-- Feature 2: Small Square -->
+<div class="md:col-span-4 bg-surface-container-low rounded-xl border border-surface-variant p-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center text-center group">
+<div class="bg-secondary/10 text-secondary w-16 h-16 rounded-full flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">edit_document</span>
+</div>
+<h3 class="font-h2 text-lg font-semibold text-on-background mb-xs">Refine with Ease</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Inline editing capabilities let you tweak generated content directly without leaving the app.</p>
+</div>
+<!-- Feature 3: Medium Span -->
+<div class="md:col-span-5 bg-surface-container-highest rounded-xl border border-surface-variant p-lg shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="flex items-center gap-md mb-md">
+<div class="bg-primary text-on-primary w-10 h-10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">file_download</span>
+</div>
+<h3 class="font-h2 text-lg font-semibold text-on-background">Word Export</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Instantly export your finalized documents to perfectly formatted Microsoft Word (.docx) files, ready for printing or official submission to your department heads.</p>
+</div>
+<!-- Feature 4: Medium Span -->
+<div class="md:col-span-7 bg-surface rounded-xl border border-surface-variant p-lg shadow-sm hover:shadow-md transition-shadow flex flex-col relative overflow-hidden">
+<div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-surface-container-low to-transparent pointer-events-none"></div>
+<div class="flex items-center gap-md mb-md relative z-10">
+<div class="bg-tertiary text-on-tertiary w-10 h-10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<h3 class="font-h2 text-lg font-semibold text-on-background">Optional Profiles</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant relative z-10 max-w-lg">Create a professional profile to save your default school information, grade levels handled, and subjects taught. The AI will automatically incorporate this context into future documents to save you time.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface border-t border-surface-variant py-xl mt-auto">
+<div class="max-w-[1280px] mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: &quot;FILL&quot; 1;">auto_awesome</span>
+<span class="font-h2 text-base font-bold text-on-surface"><br></span>
+</div>
+<div class="flex items-center gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#"><br></a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#"><br></a>
+</div>
+<div class="font-caption text-caption text-outline">
+                Published by Jarenas-py
+            </div>
+</div>
+</footer>
+
+
+</body></html>

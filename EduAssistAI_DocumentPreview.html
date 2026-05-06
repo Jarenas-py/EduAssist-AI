@@ -1,0 +1,337 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Document Preview &amp; Refinement - EduAssist AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#444653",
+                        "surface-dim": "#d1dbec",
+                        "surface-tint": "#3755c3",
+                        "on-tertiary-fixed-variant": "#3f484d",
+                        "primary": "#00288e",
+                        "surface-container": "#e5eeff",
+                        "inverse-surface": "#27313e",
+                        "on-tertiary-container": "#b3bcc2",
+                        "on-primary-container": "#a8b8ff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#bfc8ce",
+                        "tertiary-container": "#434c51",
+                        "on-background": "#121c28",
+                        "on-primary-fixed-variant": "#173bab",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#1e40af",
+                        "on-secondary-container": "#003c70",
+                        "surface-container-high": "#dfe9fa",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#001453",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#004883",
+                        "inverse-on-surface": "#eaf1ff",
+                        "outline": "#757684",
+                        "background": "#f8f9ff",
+                        "inverse-primary": "#b8c4ff",
+                        "secondary-fixed": "#d4e3ff",
+                        "secondary-container": "#64a8fe",
+                        "surface-container-low": "#eef4ff",
+                        "outline-variant": "#c4c5d5",
+                        "on-tertiary-fixed": "#141d21",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#dde1ff",
+                        "tertiary-fixed": "#dbe4ea",
+                        "secondary": "#0060ac",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#2d363a",
+                        "on-secondary-fixed": "#001c39",
+                        "surface-container-highest": "#d9e3f4",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "surface-variant": "#d9e3f4",
+                        "on-surface": "#121c28"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "2xl": "3rem",
+                        "gutter": "1rem",
+                        "xl": "2rem",
+                        "margin-mobile": "1rem",
+                        "base": "4px",
+                        "xs": "0.25rem",
+                        "margin-desktop": "2.5rem",
+                        "lg": "1.5rem",
+                        "sm": "0.5rem",
+                        "md": "1rem"
+                    },
+                    "fontFamily": {
+                        "h1": ["Public Sans"],
+                        "caption": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "h2": ["Public Sans"],
+                        "label-md": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "h1": ["2.25rem", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "caption": ["0.75rem", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "body-lg": ["1.125rem", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["1rem", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h2": ["1.5rem", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["0.875rem", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased h-screen flex overflow-hidden flex-row"><aside class="w-64 h-screen bg-surface-container-low border-r border-outline-variant/30 flex flex-col shrink-0 z-50">
+<!-- Sidebar Header -->
+<div class="h-16 px-6 flex items-center">
+<button class="p-2 -ml-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<!-- Action Button -->
+<div class="px-4 mb-6">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary hover:bg-primary/90 px-4 py-3 rounded-xl font-label-md transition-all shadow-sm">
+<span class="material-symbols-outlined">add</span>
+            Create New Document
+        </button>
+</div>
+<!-- Main Navigation -->
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-secondary-container text-on-secondary-container font-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">auto_awesome</span>
+            AI Assistant
+        </a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-md transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+            Settings
+        </a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-md transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+            Help Center
+        </a>
+</nav>
+<!-- Footer Actions -->
+<div class="p-3 border-t border-outline-variant/30">
+<button class="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-error hover:bg-error/5 font-label-md transition-colors">
+<span class="material-symbols-outlined">logout</span>
+            Sign Out
+        </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen relative">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm border-b border-outline-variant/30">
+<div class="flex justify-between items-center px-margin-desktop h-16 w-full mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: &quot;FILL&quot; 1;">auto_awesome</span>
+<!-- Brand Logo -->
+<span class="font-h1 text-h2 font-bold text-primary">EduAssist AI</span>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-sm">
+<button class="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/5 transition-colors duration-200 font-label-md">
+    Login
+</button>
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary hover:bg-primary/90 transition-colors duration-200 shadow-sm active:scale-95 font-label-md">
+    Register
+</button>
+</div>
+</div>
+</header>
+<!-- Split View Container -->
+<div class="flex-1 flex flex-col md:flex-row overflow-hidden bg-surface-container-lowest">
+<!-- Document Preview Section (Left Side) -->
+<section class="flex-1 lg:w-[70%] flex flex-col h-full border-r border-outline-variant/30 relative">
+<!-- Document Header Actions -->
+<div class="h-16 flex items-center justify-between px-margin-desktop border-b border-outline-variant/30 bg-surface-container-lowest shrink-0">
+<div class="flex items-center gap-sm">
+<button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div>
+<h2 class="font-h2 text-h2 text-on-surface truncate max-w-md">Grade 10 Science - Unit 3 Lesson Plan</h2>
+<p class="font-caption text-caption text-on-surface-variant">Generated 2 mins ago • Draft</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-full font-label-md text-label-md transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">download</span>
+                            Download as Word
+                        </button>
+</div>
+</div>
+<!-- Document Canvas -->
+<div class="flex-1 overflow-y-auto p-4 md:p-margin-desktop bg-surface-container-low flex justify-center pb-20">
+<!-- Page Sheet -->
+<div class="bg-white w-full max-w-[850px] min-h-[1100px] shadow-[0_4px_12px_rgba(0,0,0,0.05)] rounded-lg p-8 md:p-12 mb-12 text-black font-sans">
+<!-- Document Content (Banghay-Aralin) -->
+<div class="space-y-6">
+<div class="text-center mb-6">
+<div class="flex justify-center mb-2">
+<div class="w-16 h-16 rounded-full border-2 border-blue-900 flex items-center justify-center text-blue-900 font-bold text-xs">DEPED</div>
+</div>
+<p class="text-sm font-semibold">Republic of the Philippines</p>
+<p class="text-lg font-bold">Department of Education</p>
+<p class="text-sm">National Capital Region</p>
+<p class="text-sm">Schools Division Office of Las Piñas City</p>
+<hr class="border-t-2 border-black mt-4">
+</div>
+<table class="w-full border-collapse border border-black mb-8 text-sm">
+<tbody><tr>
+<th class="border border-black bg-gray-100 p-2 text-center font-bold" colspan="4">G BANGHAY - ARALIN</th>
+</tr>
+<tr>
+<td class="border border-black p-2 font-bold w-[25%]">Asignatura:</td>
+<td class="border border-black p-2 w-[25%]"></td>
+<td class="border border-black p-2 font-bold w-[25%]">Baitang:</td>
+<td class="border border-black p-2 w-[25%]"></td>
+</tr>
+<tr>
+<td class="border border-black p-2 font-bold">Kuwarter:</td>
+<td class="border border-black p-2"></td>
+<td class="border border-black p-0" colspan="2" rowspan="2">
+<table class="w-full h-full border-collapse">
+<tbody><tr><td class="border-b border-black p-2 h-8"></td></tr>
+<tr><td class="border-b border-black p-2 h-8"></td></tr>
+<tr><td class="p-2 h-8"></td></tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td class="border border-black p-2 font-bold">Linggo ng Pagtuturo:</td>
+<td class="border border-black p-2"></td>
+</tr>
+<tr>
+<td class="border border-black p-2 font-bold">Araw sa Pagtuturo:</td>
+<td class="border border-black p-2"></td>
+<td class="border border-black p-2 font-bold">Petsa ng Pagtuturo:</td>
+<td class="border border-black p-2"></td>
+</tr>
+</tbody></table>
+<table class="w-full border-collapse border border-black text-sm">
+<tbody><tr>
+<th class="border border-black bg-gray-100 p-2 text-left font-bold uppercase" colspan="2">I. NILALAMAN NG KURIKULUM, PAMANTAYAN, AT MGA KASANAYAN SA ARALIN</th>
+</tr>
+<tr>
+<td class="border border-black p-2 w-1/2">A. Mga Pamantayang Pangnilalaman</td>
+<td class="border border-black p-2 w-1/2"></td>
+</tr>
+<tr>
+<td class="border border-black p-2">B. Mga Pamantayang sa Pagganap</td>
+<td class="border border-black p-2"></td>
+</tr>
+<tr>
+<td class="border border-black p-2">C. Mga Kasanayan at Layuning Pampagkatuto</td>
+<td class="border border-black p-2"></td>
+</tr>
+<tr>
+<td class="border border-black p-2">D. Mga Lilinanging Pagpapahalaga (Values to be Developed)</td>
+<td class="border border-black p-2"></td>
+</tr>
+<tr>
+<td class="border border-black p-2">E. Mga Kasanayang Pampagkatuto</td>
+<td class="border border-black p-2"></td>
+</tr>
+<tr>
+<td class="border border-black p-2">F. Nilalaman</td>
+<td class="border border-black p-2"></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+<div class="absolute bottom-2 right-4 text-xs text-on-surface-variant/50"><br></div>
+</section>
+<!-- AI Chat Sidebar (Right Side) -->
+<aside class="flex-1 lg:w-[30%] lg:min-w-[350px] lg:max-w-[450px] bg-surface flex flex-col h-full border-l border-outline-variant/30 shadow-[-4px_0_12px_rgba(0,0,0,0.02)]">
+<!-- Chat Header -->
+<div class="h-16 px-4 flex items-center justify-between border-b border-outline-variant/30 bg-surface-container-lowest shrink-0">
+<div class="flex items-center gap-2 text-primary font-h2 text-h2">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">auto_awesome</span>
+                        Refine Document
+                    </div>
+<button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<!-- Chat History -->
+<div class="flex-1 overflow-y-auto p-4 space-y-6 bg-surface-bright flex flex-col">
+<!-- System Greeting -->
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: &quot;FILL&quot; 1;">robot_2</span>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] text-on-surface">
+<p class="">Here is the draft for the Science 10 Lesson Plan on the Endocrine System based on your uploaded syllabus. How would you like to refine it?</p>
+</div>
+</div>
+<!-- Suggestion Chips -->
+<div class="flex flex-wrap gap-2 pl-11">
+<button class="bg-surface-container text-primary border border-primary-fixed-dim hover:bg-secondary-fixed px-3 py-1.5 rounded-full font-label-md text-label-md transition-colors text-sm">
+                            Add a quiz section
+                        </button>
+<button class="bg-surface-container text-primary border border-primary-fixed-dim hover:bg-secondary-fixed px-3 py-1.5 rounded-full font-label-md text-label-md transition-colors text-sm">
+                            Make activities more interactive
+                        </button>
+</div>
+<!-- User Message -->
+<div class="flex gap-3 flex-row-reverse">
+<img alt="User avatar" class="w-8 h-8 rounded-full shrink-0 object-cover border border-outline-variant" data-alt="A professional headshot of a female teacher in her 40s with warm, approachable features. She is wearing a smart blazer over a light blouse. The background is a brightly lit, modern classroom or office setting, softly blurred to keep the focus on her. The lighting is soft and natural, emphasizing a trustworthy and empathetic persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkJGmFaGl8HCH8dPjEtqZFPEZD5pZT-jypZzciXJTnNgmuzNyN9HqBtvQIovESKG6pBEAcNYSDNLper5HasqrHjdQASmktsJRpaOaLxLgFwp95Q0ff-CqMgxzBFEYfxEQEKORmyCPl8RTleXWVP-7Pi2Sor1t-bLvtcqCoYOGBEBUyTd130TO1d_TEL3lZo8VQmWNzDGpb2ADr-rt7uMnNUN6-f0jimFASfFaXA3YHOqRcCdt4Y1GGjP2HR1aT7TZj-6iwTmXBKhc">
+<div class="bg-surface-container-low border border-outline-variant p-4 rounded-2xl rounded-tr-sm shadow-sm max-w-[85%] text-on-surface">
+<p class="">Please add a short 5-item multiple choice quiz at the end for evaluation.</p>
+</div>
+</div>
+<!-- AI Response -->
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: &quot;FILL&quot; 1;">robot_2</span>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] text-on-surface">
+<p class="">I've added a 5-item multiple choice quiz to the Evaluation section. I included questions covering gland locations and hormone functions as requested in the objectives.</p>
+<div class="mt-3 p-3 bg-surface-container rounded border border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">description</span>
+<span class="font-label-md text-label-md">Document Updated</span>
+</div>
+<button class="text-secondary font-label-md hover:underline">Undo</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-4 bg-surface-container-lowest border-t border-outline-variant/30 shrink-0">
+<div class="relative flex items-end bg-surface-container-low rounded-xl border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all p-1">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors shrink-0">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none py-3 px-2 text-on-surface font-body-md text-body-md placeholder-on-surface-variant max-h-32 overflow-y-auto" placeholder="Type instructions to refine..." rows="1" style="min-height: 48px;"></textarea>
+<button class="p-2 mb-1 mr-1 bg-primary text-on-primary rounded-lg hover:bg-primary-container transition-colors shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<p class="text-center font-caption text-caption text-on-surface-variant mt-2">EduAssist AI can make mistakes. Please verify important information.</p>
+</div>
+</aside>
+</div>
+</main>
+
+
+</body></html>

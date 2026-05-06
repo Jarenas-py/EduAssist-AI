@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EduAssist AI - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#121c28",
+                        "surface-variant": "#d9e3f4",
+                        "tertiary-fixed": "#dbe4ea",
+                        "tertiary": "#2d363a",
+                        "secondary-fixed": "#d4e3ff",
+                        "primary-container": "#1e40af",
+                        "on-background": "#121c28",
+                        "tertiary-container": "#434c51",
+                        "on-secondary-container": "#003c70",
+                        "surface-container-highest": "#d9e3f4",
+                        "on-tertiary-container": "#b3bcc2",
+                        "surface-dim": "#d1dbec",
+                        "surface-container": "#e5eeff",
+                        "surface-bright": "#f8f9ff",
+                        "primary": "#00288e",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#001c39",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "outline": "#757684",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#27313e",
+                        "on-surface-variant": "#444653",
+                        "surface-container-low": "#eef4ff",
+                        "on-tertiary-fixed": "#141d21",
+                        "on-primary-container": "#a8b8ff",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "tertiary-fixed-dim": "#bfc8ce",
+                        "outline-variant": "#c4c5d5",
+                        "secondary-container": "#64a8fe",
+                        "on-primary-fixed-variant": "#173bab",
+                        "on-primary-fixed": "#001453",
+                        "surface-tint": "#3755c3",
+                        "on-secondary-fixed-variant": "#004883",
+                        "secondary": "#0060ac",
+                        "surface": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "surface-container-high": "#dfe9fa",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#3f484d",
+                        "inverse-primary": "#b8c4ff",
+                        "primary-fixed": "#dde1ff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "2.5rem",
+                        "lg": "1.5rem",
+                        "margin-mobile": "1rem",
+                        "2xl": "3rem",
+                        "gutter": "1rem",
+                        "sm": "0.5rem",
+                        "xs": "0.25rem",
+                        "md": "1rem",
+                        "base": "4px",
+                        "xl": "2rem"
+                    },
+                    "fontFamily": {
+                        "h2": ["Public Sans", "sans-serif"],
+                        "label-md": ["Public Sans", "sans-serif"],
+                        "caption": ["Public Sans", "sans-serif"],
+                        "body-md": ["Public Sans", "sans-serif"],
+                        "h1": ["Public Sans", "sans-serif"],
+                        "body-lg": ["Public Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "h2": ["1.5rem", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["0.875rem", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "caption": ["0.75rem", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "body-md": ["1rem", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h1": ["2.25rem", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["1.125rem", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col items-center justify-center">
+<!-- Main Content Canvas -->
+<main class="w-full max-w-md mx-auto px-margin-mobile flex-grow flex flex-col items-center justify-center space-y-2xl">
+<!-- Branding / Header -->
+<div class="text-center space-y-sm w-full">
+<div class="inline-flex items-center justify-center w-20 h-20 bg-surface-container rounded-2xl shadow-sm mb-md">
+<span class="material-symbols-outlined text-[40px] text-primary" data-icon="school">school</span>
+</div>
+<h1 class="font-h1 text-h1 text-primary">Welcome Back</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Sign in to your EduAssist AI account</p>
+</div>
+<!-- Login Form Card -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-lg shadow-sm border border-surface-variant">
+<form class="space-y-lg w-full">
+<!-- Email Field -->
+<div class="space-y-xs w-full">
+<label class="block font-label-md text-label-md text-on-surface" for="email">Email</label>
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant" data-icon="mail">mail</span>
+</div>
+<input class="w-full pl-[44px] pr-md py-sm bg-surface-bright border border-outline-variant rounded-lg text-on-surface font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all min-h-[48px]" id="email" name="email" placeholder="educator@deped.gov.ph" required="" type="email">
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-xs w-full">
+<label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant" data-icon="lock">lock</span>
+</div>
+<input class="w-full pl-[44px] pr-md py-sm bg-surface-bright border border-outline-variant rounded-lg text-on-surface font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all min-h-[48px]" id="password" name="password" placeholder="••••••••" required="" type="password">
+</div>
+</div>
+<!-- Login Button -->
+<button class="w-full bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md rounded-lg py-sm px-md flex items-center justify-center gap-sm transition-colors min-h-[48px] shadow-sm active:opacity-80" type="submit"><span class="material-symbols-outlined text-[20px]" data-icon="login">login</span>
+</button>
+</form>
+</div>
+<!-- Optional: Decorative/Contextual Image -->
+<div class="w-full max-w-sm mx-auto rounded-xl overflow-hidden opacity-80 mix-blend-multiply mt-lg">
+<img alt="Abstract geometric background in minimal white and light blue tones representing modern educational technology" class="w-full h-auto object-cover opacity-50 grayscale transition-opacity hover:grayscale-0 hover:opacity-100" data-alt="A soft, abstract geometric 3d rendering representing modern education technology. The color palette is minimal, utilizing pristine white, subtle light grays, and the official DepEd blue as accents. The lighting is diffused and calm, conveying trust and cognitive clarity suited for a professional environment. High-end modern aesthetic." src="https://lh3.googleusercontent.com/aida/ADBb0ujXog_XVnMfDKWEQ00Tpc50M-rdlbvgwLmJSvmcHkAn2bEPjLZf3_PyP2c398JL0PwxHGDBfFMYRkYabpwsl7_8GNYZMdDxssZVI7PkQ7BCs-NM-_SCmdrwhIZFJ6U7ftf_VGa3VsbvCIBhQ64_ZJZlengtSu5QPM5o88lAmtRUpSpzPJ9-C0DfLnAXeornD0ZsUjcOdrBZYSAck6ZPmr0ssT8kpdic7bRVtPWXp1ZP8xxxY5EZzgITqu0v59gD2az_xMXF4fjqJA">
+</div>
+</main>
+<!-- Footer from JSON -->
+<footer class="w-full py-xl bg-background border-t border-outline-variant flex flex-col items-center justify-center gap-sm mt-auto px-margin-mobile text-center">
+<div class="font-label-md text-label-md font-semibold text-secondary"><br></div>
+<div class="flex items-center gap-md font-caption text-caption">
+<a class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer underline" href="#"><br></a>
+<span class="text-outline-variant">•</span>
+<a class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer underline" href="#"><br></a>
+</div>
+<div class="font-caption text-caption text-on-surface-variant mt-sm"><br></div>
+</footer>
+
+
+</body></html>
