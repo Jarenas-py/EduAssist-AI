@@ -49,6 +49,13 @@ class UserLogin(BaseModel):
     email: str
     password: str
 
+class UserUpdate(BaseModel):
+    firstName: str
+    lastName: str
+    email: str
+    password: str
+    position: str
+
 @app.post("/api/register")
 def register_user(user: UserRegister, db: Session = Depends(get_db)):
     # Check if email is already taken
@@ -81,6 +88,37 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         "user_id": db_user.id,
         "first_name": db_user.first_name
     }
+
+@app.get("/api/user/{user_id}")
+def get_user_profile(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Send the data back to the frontend
+    return {
+        "firstName": user.first_name,
+        "lastName": user.last_name,
+        "email": user.email,
+        "password": user.password,
+        "position": user.position
+    }
+
+@app.put("/api/user/{user_id}")
+def update_user_profile(user_id: int, user_data: UserUpdate, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Update the database columns
+    user.first_name = user_data.firstName
+    user.last_name = user_data.lastName
+    user.email = user_data.email
+    user.password = user_data.password
+    user.position = user_data.position
+    
+    db.commit()
+    return {"message": "Profile updated successfully"}
 
 @app.post("/api/generate-dll")
 async def generate_dll(req: DocumentRequest, db: Session = Depends(get_db)):
