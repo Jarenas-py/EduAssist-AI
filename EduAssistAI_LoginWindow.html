@@ -139,3 +139,51 @@
 </form>
 </div>
 </main>
+
+<script>
+    // 1. Grab the form and the input boxes from the HTML
+    const loginForm = document.querySelector('form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
+    // 2. Listen for when the user clicks the Submit/Login button
+    loginForm.addEventListener('submit', async (e) => {
+        // Stop the browser from refreshing the page (which is the default form behavior)
+        e.preventDefault(); 
+
+        // 3. Get the exact text the user typed
+        const userEmail = emailInput.value;
+        const userPassword = passwordInput.value;
+
+        try {
+            // 4. Send the data to your Python backend
+            const response = await fetch("http://127.0.0.1:8000/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: userEmail, password: userPassword })
+            });
+            
+            const data = await response.json();
+
+            // 5. Check if login was successful
+           // 5. Check if login was successful
+            if (response.ok) {
+                // Save the ID and the First Name!
+                localStorage.setItem("eduassist_user_id", data.user_id);
+                localStorage.setItem("eduassist_first_name", data.first_name);
+                
+                // Redirect to the main app
+                window.location.href = "EduAssistAI_LandingPage.html";
+            } else { 
+                // If Python sends back a 401 (Incorrect password), tell the user
+                alert(data.detail || "Login failed. Please check your credentials.");
+            }
+        } catch (error) {
+            console.error("Login Error:", error);
+            alert("Could not connect to the server. Is your Python backend running?");
+        }
+    });
+</script>
+
+</body>
+</html>

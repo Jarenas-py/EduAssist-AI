@@ -264,5 +264,41 @@
 <!-- Footer -->
 <footer class="bg-surface-container-low dark:bg-inverse-surface text-primary dark:text-primary-fixed-dim font-caption text-caption w-full py-xl px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md border-t border-outline-variant/30 mt-auto z-10 relative"><div class="w-full text-center text-on-surface-variant/80 dark:text-on-surface-variant/80">Published by Jarenas-py</div></footer>
 
+<script>
+    const registerForm = document.querySelector('form');
+    
+    registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Gather the data from the form
+        const data = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            position: document.getElementById('position').value
+        };
+        
+        try {
+            // Send to Python
+            const response = await fetch("http://127.0.0.1:8000/api/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+            
+            if (response.ok) {
+                alert("Registration successful! Please log in.");
+                window.location.href = "EduAssistAI_LandingPage.html"; // Redirect to Landing Page
+            } else {
+                const errData = await response.json();
+                alert(errData.detail || "Registration failed.");
+            }
+        } catch (error) {
+            console.error("Registration Error:", error);
+            alert("Could not connect to the server.");
+        }
+    });
+</script>
 
 </body></html>

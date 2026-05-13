@@ -237,7 +237,7 @@
 <section class="flex flex-col items-center justify-center text-center gap-lg max-w-3xl mx-auto py-2xl">
 <div class="bg-surface-container-low px-md py-xs rounded-full border border-surface-variant flex items-center gap-sm mb-sm animate-fade-in-up">
 <span class="material-symbols-outlined text-secondary text-sm">bolt</span>
-<span class="font-label-md text-label-md text-secondary">AI-Powered Efficiency</span>
+<span class="font-label-md text-label-md text-secondary">Powered by Google Gemini</span>
 </div>
 <h1 class="font-h1 text-h1 text-on-background tracking-tight">What do you need to create?</h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
@@ -246,17 +246,17 @@
 <div class="w-full relative mt-lg group">
 <div class="absolute -inset-1 bg-gradient-to-r from-primary-container to-secondary-container rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
 <div class="relative bg-surface rounded-xl shadow-[0px_4px_24px_rgba(0,0,0,0.06)] border border-surface-variant p-md flex flex-col gap-sm transition-all duration-300 group-focus-within:border-primary group-focus-within:ring-1 group-focus-within:ring-primary">
-<textarea class="w-full bg-transparent border-none resize-none outline-none font-body-lg text-body-lg text-on-surface placeholder:text-outline-variant min-h-[120px] focus:ring-0 p-sm" placeholder="e.g., 'Draft a Daily Lesson Log for Grade 8 Science focusing on the Law of Inertia, including a simple hands-on activity and assessment...'"></textarea>
+<textarea id="prompt-input" class="w-full bg-transparent border-none resize-none outline-none font-body-lg text-body-lg text-on-surface placeholder:text-outline-variant min-h-[120px] focus:ring-0 p-sm" placeholder="e.g., 'Draft a Daily Lesson Log for Grade 8 Science focusing on the Law of Inertia...'"></textarea>
 <div class="flex justify-between items-center border-t border-surface-variant pt-sm">
-<div class="flex gap-xs text-outline">
-<button class="p-sm rounded-lg hover:bg-surface-container hover:text-primary transition-colors tooltip-trigger" title="Attach Document"><span class="material-symbols-outlined text-xl">attach_file</span></button>
-<button class="p-sm rounded-lg hover:bg-surface-container hover:text-primary transition-colors tooltip-trigger" title="Voice Input"><span class="material-symbols-outlined text-xl">mic</span></button>
-</div>
-<a href="EduAssistAI_DocumentPreview.html">
-<button class="bg-primary text-on-primary hover:bg-primary/90 font-label-md text-label-md px-xl py-sm rounded-lg shadow-sm flex items-center gap-sm transition-all active:scale-95">
-                            Generate Document
-                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</button></a>
+    <div class="flex gap-xs text-outline">
+        <button class="p-sm rounded-lg hover:bg-surface-container hover:text-primary transition-colors tooltip-trigger" title="Attach Document"><span class="material-symbols-outlined text-xl">attach_file</span></button>
+        <button class="p-sm rounded-lg hover:bg-surface-container hover:text-primary transition-colors tooltip-trigger" title="Voice Input"><span class="material-symbols-outlined text-xl">mic</span></button>
+    </div>
+    
+    <button id="generate-btn" class="bg-primary text-on-primary hover:bg-primary/90 font-label-md text-label-md px-xl py-sm rounded-lg shadow-sm flex items-center gap-sm transition-all active:scale-95">
+        Generate Document
+        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+    </button>
 </div>
 </div>
 </div>
@@ -402,4 +402,175 @@
         if (e.key === 'Escape') closeModal();
     });
 </script>
+
+<script>
+    const BACKEND_URL = "http://127.0.0.1:8000/api/generate-dll";
+    const generateBtn = document.getElementById('generate-btn');
+    const promptInput = document.getElementById('prompt-input');
+
+    // Helper function to convert a Blob (file) to a Base64 string so we can save it
+    function blobToBase64(blob) {
+        return new Promise((resolve, _) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        });
+    }
+
+    generateBtn.addEventListener('click', async (e) => {
+        e.preventDefault(); 
+        
+        const promptText = promptInput.value;
+        if (!promptText) {
+            alert("Please describe your lesson plan first!");
+            return;
+        }
+
+        const originalText = generateBtn.innerHTML;
+        generateBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-sm" style="animation: spin 1s linear infinite;">sync</span> Generating...`;
+        generateBtn.disabled = true;
+
+        try {
+            // Build the payload
+            const requestBody = { prompt: promptText };
+            
+            // If the user is logged in, attach their ID
+            const currentUserId = localStorage.getItem("eduassist_user_id");
+            if (currentUserId) {
+                requestBody.user_id = parseInt(currentUserId);
+            }
+
+            const response = await fetch(BACKEND_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (!response.ok) throw new Error("Backend failed to generate document.");
+
+            const blob = await response.blob();
+            const base64data = await blobToBase64(blob);
+            
+            sessionStorage.setItem("draftDocument", base64data);
+            sessionStorage.setItem("documentContext", promptText);
+            
+            window.location.href = "EduAssistAI_DocumentPreview.html";
+            
+        } catch (error) {
+            console.error(error);
+            alert("Error generating document. Check your Python terminal for details.");
+            generateBtn.innerHTML = originalText;
+            generateBtn.disabled = false;
+        }
+    }); 
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const userId = localStorage.getItem("eduassist_user_id");
+    const firstName = localStorage.getItem("eduassist_first_name");
+    
+    if (userId && firstName) {
+        // 1. Replace the Login/Register buttons with a Profile Icon
+        const headerFlexDivs = document.querySelectorAll("header .flex.items-center");
+        if (headerFlexDivs.length > 0) {
+            const authContainer = headerFlexDivs[headerFlexDivs.length - 1]; // Grabs the button container
+            const initial = firstName.charAt(0).toUpperCase();
+            
+            authContainer.innerHTML = `
+                <div id="profile-icon-btn" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-h2 text-lg shadow-sm cursor-pointer select-none transition-transform hover:scale-105" title="Logged in as ${firstName} (Click to Sign Out)">
+                    ${initial}
+                </div>
+            `;
+            
+            // Allow them to sign out by clicking the profile icon on any page
+            document.getElementById("profile-icon-btn").addEventListener("click", () => {
+                if(confirm("Do you want to sign out?")) {
+                    localStorage.removeItem("eduassist_user_id");
+                    localStorage.removeItem("eduassist_first_name");
+                    window.location.reload();
+                }
+            });
+        }
+
+        // 2. Add Sign Out Button to the bottom of the Right Sidebar (Only triggers on Document Preview)
+        const rightSidebar = document.getElementById("right-sidebar");
+        if (rightSidebar) {
+            const signOutContainer = document.createElement("div");
+            signOutContainer.className = "p-4 border-t border-outline-variant/30 bg-surface-container-lowest shrink-0";
+            signOutContainer.innerHTML = `
+                <button id="sidebar-sign-out-btn" class="w-full py-2 bg-error text-on-error rounded-lg hover:bg-error/90 transition-colors font-label-md flex items-center justify-center gap-2 shadow-sm">
+                    <span class="material-symbols-outlined">logout</span> Sign Out
+                </button>
+            `;
+            rightSidebar.appendChild(signOutContainer); // Appends to the very bottom
+
+            document.getElementById("sidebar-sign-out-btn").addEventListener("click", () => {
+                localStorage.removeItem("eduassist_user_id");
+                localStorage.removeItem("eduassist_first_name");
+                window.location.href = "EduAssistAI_LandingPage.html";
+            });
+        }
+    }
+});
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Find the form specifically inside the login modal
+        const modalLoginForm = document.querySelector('#login-overlay form');
+        
+        if (modalLoginForm) {
+            modalLoginForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); 
+                
+                // Smart select: Check for 'modal-email' first, fallback to 'email'
+                const emailInput = document.getElementById('modal-email') || document.getElementById('email');
+                const passwordInput = document.getElementById('modal-password') || document.getElementById('password');
+
+                const userEmail = emailInput.value;
+                const userPassword = passwordInput.value;
+
+                // Change button state to show loading
+                const submitBtn = modalLoginForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]" style="animation: spin 1s linear infinite;">sync</span> Logging In...`;
+                submitBtn.disabled = true;
+
+                try {
+                    // Send credentials to Python
+                    const response = await fetch("http://127.0.0.1:8000/api/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: userEmail, password: userPassword })
+                    });
+                    
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Save session variables
+                        localStorage.setItem("eduassist_user_id", data.user_id);
+                        localStorage.setItem("eduassist_first_name", data.first_name);
+                        
+                        // Reload the page to automatically switch the buttons to the Profile Icon
+                        window.location.reload(); 
+                    } else { 
+                        alert(data.detail || "Login failed. Please check your credentials.");
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                    }
+                } catch (error) {
+                    console.error("Login Error:", error);
+                    alert("Could not connect to the server. Is your Python backend running?");
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+@keyframes spin { 100% { transform: rotate(360deg); } }
+</style>
 </body></html>

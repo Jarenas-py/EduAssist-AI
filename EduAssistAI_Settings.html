@@ -346,5 +346,105 @@
   })();
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const userId = localStorage.getItem("eduassist_user_id");
+    const firstName = localStorage.getItem("eduassist_first_name");
+    
+    if (userId && firstName) {
+        // 1. Replace the Login/Register buttons with a Profile Icon
+        const headerFlexDivs = document.querySelectorAll("header .flex.items-center");
+        if (headerFlexDivs.length > 0) {
+            const authContainer = headerFlexDivs[headerFlexDivs.length - 1]; // Grabs the button container
+            const initial = firstName.charAt(0).toUpperCase();
+            
+            authContainer.innerHTML = `
+                <div id="profile-icon-btn" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-h2 text-lg shadow-sm cursor-pointer select-none transition-transform hover:scale-105" title="Logged in as ${firstName} (Click to Sign Out)">
+                    ${initial}
+                </div>
+            `;
+            
+            // Allow them to sign out by clicking the profile icon on any page
+            document.getElementById("profile-icon-btn").addEventListener("click", () => {
+                if(confirm("Do you want to sign out?")) {
+                    localStorage.removeItem("eduassist_user_id");
+                    localStorage.removeItem("eduassist_first_name");
+                    window.location.reload();
+                }
+            });
+        }
+
+        // 2. Add Sign Out Button to the bottom of the Right Sidebar (Only triggers on Document Preview)
+        const rightSidebar = document.getElementById("right-sidebar");
+        if (rightSidebar) {
+            const signOutContainer = document.createElement("div");
+            signOutContainer.className = "p-4 border-t border-outline-variant/30 bg-surface-container-lowest shrink-0";
+            signOutContainer.innerHTML = `
+                <button id="sidebar-sign-out-btn" class="w-full py-2 bg-error text-on-error rounded-lg hover:bg-error/90 transition-colors font-label-md flex items-center justify-center gap-2 shadow-sm">
+                    <span class="material-symbols-outlined">logout</span> Sign Out
+                </button>
+            `;
+            rightSidebar.appendChild(signOutContainer); // Appends to the very bottom
+
+            document.getElementById("sidebar-sign-out-btn").addEventListener("click", () => {
+                localStorage.removeItem("eduassist_user_id");
+                localStorage.removeItem("eduassist_first_name");
+                window.location.href = "EduAssistAI_LandingPage.html";
+            });
+        }
+    }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const userId = localStorage.getItem("eduassist_user_id");
+    const firstName = localStorage.getItem("eduassist_first_name");
+    
+    if (userId && firstName) {
+        // 1. Replace the Login/Register buttons with a Profile Icon
+        const headerFlexDivs = document.querySelectorAll("header .flex.items-center");
+        if (headerFlexDivs.length > 0) {
+            const authContainer = headerFlexDivs[headerFlexDivs.length - 1]; // Grabs the button container
+            const initial = firstName.charAt(0).toUpperCase();
+            
+            authContainer.innerHTML = `
+                <div id="profile-icon-btn" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-h2 text-lg shadow-sm cursor-pointer select-none transition-transform hover:scale-105" title="Logged in as ${firstName} (Click to Sign Out)">
+                    ${initial}
+                </div>
+            `;
+            
+            // Allow them to sign out by clicking the profile icon on any page
+            document.getElementById("profile-icon-btn").addEventListener("click", () => {
+                if(confirm("Do you want to sign out?")) {
+                    localStorage.removeItem("eduassist_user_id");
+                    localStorage.removeItem("eduassist_first_name");
+                    window.location.reload();
+                }
+            });
+        }
+
+        // 2. Add Sign Out Button to the bottom of the Right Sidebar (Only triggers on Document Preview)
+        const rightSidebar = document.getElementById("right-sidebar");
+        if (rightSidebar) {
+            const signOutContainer = document.createElement("div");
+            signOutContainer.className = "p-4 border-t border-outline-variant/30 bg-surface-container-lowest shrink-0";
+            signOutContainer.innerHTML = `
+                <button id="sidebar-sign-out-btn" class="w-full py-2 bg-error text-on-error rounded-lg hover:bg-error/90 transition-colors font-label-md flex items-center justify-center gap-2 shadow-sm">
+                    <span class="material-symbols-outlined">logout</span> Sign Out
+                </button>
+            `;
+            rightSidebar.appendChild(signOutContainer); // Appends to the very bottom
+
+            document.getElementById("sidebar-sign-out-btn").addEventListener("click", () => {
+                localStorage.removeItem("eduassist_user_id");
+                localStorage.removeItem("eduassist_first_name");
+                window.location.href = "EduAssistAI_LandingPage.html";
+            });
+        }
+    }
+});
+</script>
+
 </body>
 </html>
