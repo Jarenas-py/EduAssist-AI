@@ -37,13 +37,24 @@ class DocumentRequest(BaseModel):
     prompt: str
     user_id: Optional[int] = None
     
-
 class UserRegister(BaseModel):
     firstName: str
+    middleName: Optional[str] = None
     lastName: str
+    dob: str
     email: str
     password: str
     position: str
+    schoolName: str
+    phone1: str
+    phone2: Optional[str] = None
+    blockLot: Optional[str] = None
+    street: str
+    village: str
+    city: str
+    region: str
+    zip: str
+    country: Optional[str] = "Philippines"
 
 class UserLogin(BaseModel):
     email: str
@@ -51,25 +62,35 @@ class UserLogin(BaseModel):
 
 class UserUpdate(BaseModel):
     firstName: str
+    middleName: Optional[str] = None
     lastName: str
+    dob: str
     email: str
     password: str
     position: str
+    schoolName: str
+    phone1: str
+    phone2: Optional[str] = None
+    blockLot: Optional[str] = None
+    street: str
+    village: str
+    city: str
+    region: str
+    zip: str
+    country: Optional[str] = "Philippines"
 
 @app.post("/api/register")
 def register_user(user: UserRegister, db: Session = Depends(get_db)):
-    # Check if email is already taken
     existing_user = db.query(User).filter(User.email == user.email).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already exists")
     
-    # Save the user exactly as they typed it
     new_user = User(
-        first_name=user.firstName,
-        last_name=user.lastName,
-        email=user.email,
-        password=user.password,
-        position=user.position
+        first_name=user.firstName, middle_name=user.middleName, last_name=user.lastName,
+        dob=user.dob, email=user.email, password=user.password, position=user.position,
+        school_name=user.schoolName, phone1=user.phone1, phone2=user.phone2,
+        block_lot=user.blockLot, street=user.street, village=user.village,
+        city=user.city, region=user.region, zip_code=user.zip, country=user.country
     )
     db.add(new_user)
     db.commit()
@@ -95,13 +116,12 @@ def get_user_profile(user_id: int, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
-    # Send the data back to the frontend
     return {
-        "firstName": user.first_name,
-        "lastName": user.last_name,
-        "email": user.email,
-        "password": user.password,
-        "position": user.position
+        "firstName": user.first_name, "middleName": user.middle_name, "lastName": user.last_name,
+        "dob": user.dob, "email": user.email, "password": user.password, "position": user.position,
+        "schoolName": user.school_name, "phone1": user.phone1, "phone2": user.phone2,
+        "blockLot": user.block_lot, "street": user.street, "village": user.village,
+        "city": user.city, "region": user.region, "zip": user.zip_code, "country": user.country
     }
 
 @app.put("/api/user/{user_id}")
@@ -110,12 +130,23 @@ def update_user_profile(user_id: int, user_data: UserUpdate, db: Session = Depen
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
-    # Update the database columns
     user.first_name = user_data.firstName
+    user.middle_name = user_data.middleName
     user.last_name = user_data.lastName
+    user.dob = user_data.dob
     user.email = user_data.email
     user.password = user_data.password
     user.position = user_data.position
+    user.school_name = user_data.schoolName
+    user.phone1 = user_data.phone1
+    user.phone2 = user_data.phone2
+    user.block_lot = user_data.blockLot
+    user.street = user_data.street
+    user.village = user_data.village
+    user.city = user_data.city
+    user.region = user_data.region
+    user.zip_code = user_data.zip
+    user.country = user_data.country
     
     db.commit()
     return {"message": "Profile updated successfully"}

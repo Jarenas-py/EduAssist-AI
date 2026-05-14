@@ -168,26 +168,29 @@
 </section>
 <!-- 2. Professional Details -->
 <section class="space-y-md">
-<h3 class="font-label-md text-label-md text-primary uppercase tracking-wider border-b border-outline-variant/30 pb-xs">2. Professional Details</h3>
-<div class="grid grid-cols-1 gap-md">
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-base" for="position">DepEd Position</label>
-<select class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md appearance-none" id="position" required="">
-<option disabled="" selected="" value="">Select your current position</option>
-<option value="t1">Teacher I</option>
-<option value="t2">Teacher II</option>
-<option value="t3">Teacher III</option>
-<option value="mt1">Master Teacher I</option>
-<option value="mt2">Master Teacher II</option>
-<option value="principal">Principal</option>
-<option value="other">Other Administrative Role</option>
-</select>
-<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-on-surface-variant mt-6">
-<span class="material-symbols-outlined">expand_more</span>
-</div>
-</div>
-</div>
-</section>
+            <h3 class="font-label-md text-label-md text-primary uppercase tracking-wider border-b border-outline-variant/30 pb-xs">2. Professional Details</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+              <div>
+                <label class="block font-label-md text-label-md text-on-surface mb-base" for="position">DepEd Position</label>
+                <div class="relative">
+                  <select class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md appearance-none" id="position" required="">
+                    <option disabled="" selected="" value="">Select your current position</option>
+                    <option value="t1">Teacher I</option>
+                    <option value="t2">Teacher II</option>
+                    </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-on-surface-variant">
+                    <span class="material-symbols-outlined">expand_more</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <label class="block font-label-md text-label-md text-on-surface mb-base" for="schoolName">DepEd School</label>
+                <input class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md" id="schoolName" required="" type="text" placeholder="e.g. Las Piñas National High School"/>
+              </div>
+            </div>
+          </section>
 <!-- 3. Contact Details -->
 <section class="space-y-md">
 <h3 class="font-label-md text-label-md text-primary uppercase tracking-wider border-b border-outline-variant/30 pb-xs">3. Contact Details</h3>
@@ -271,13 +274,25 @@
         e.preventDefault();
         
         // Gather the data from the form
-        const data = {
+       const data = {
             firstName: document.getElementById('firstName').value,
+            middleName: document.getElementById('middleName').value,
             lastName: document.getElementById('lastName').value,
+            dob: document.getElementById('dob').value,
             email: document.getElementById('email').value,
             password: document.getElementById('password').value,
-            position: document.getElementById('position').value
-        };
+            position: document.getElementById('position').value,
+            schoolName: document.getElementById('schoolName').value, // NEW
+            phone1: document.getElementById('phone1').value,
+            phone2: document.getElementById('phone2').value,
+            blockLot: document.getElementById('blockLot').value,
+            street: document.getElementById('street').value,
+            village: document.getElementById('village').value,
+            city: document.getElementById('city').value,
+            region: document.getElementById('region').value,
+            zip: document.getElementById('zip').value,
+            country: document.getElementById('country').value
+        }; 
         
         try {
             // Send to Python

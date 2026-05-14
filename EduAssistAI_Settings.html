@@ -174,48 +174,50 @@
                 <input class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md" id="lastName" required="" type="text"/>
               </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+           <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
               <div>
                 <label class="block font-label-md text-label-md text-on-surface mb-base" for="dob">Date of Birth</label>
                 <input class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md" id="dob" required="" type="date"/>
               </div>
-            </div>
+              <div>
+                <label class="block font-label-md text-label-md text-on-surface mb-base" for="email">Email</label>
+                <input class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md" id="email" required="" type="email" placeholder="name@deped.gov.ph"/>
+              </div>
+              <div>
+                <label class="block font-label-md text-label-md text-on-surface mb-base" for="password">Password</label>
+                <div class="relative">
+                  <input class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md" id="password" required="" type="password"/>
+                  <span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-on-surface-variant cursor-pointer">visibility_off</span>
+                </div>
+              </div>
+            </div> 
           </section>
 
           <!-- 2. Professional Details -->
-          <section class="space-y-md">
+         <section class="space-y-md">
             <h3 class="font-label-md text-label-md text-primary uppercase tracking-wider border-b border-outline-variant/30 pb-xs">2. Professional Details</h3>
-            <div class="grid grid-cols-1 gap-md">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-                <div>
-                  <label class="block font-label-md text-label-md text-on-surface mb-base" for="email">Official DepEd Email</label>
-                  <input class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md" id="email" placeholder="name@deped.gov.ph" required="" type="email"/>
-                </div>
-                <div>
-                  <label class="block font-label-md text-label-md text-on-surface mb-base" for="password">Password</label>
-                  <div class="relative">
-                    <input class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md" id="password" required="" type="password"/>
-                    <span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-on-surface-variant cursor-pointer">visibility_off</span>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-md">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+              <div>
                 <label class="block font-label-md text-label-md text-on-surface mb-base" for="position">DepEd Position</label>
                 <div class="relative">
                   <select class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md appearance-none" id="position" required="">
                     <option disabled="" selected="" value="">Select your current position</option>
                     <option value="t1">Teacher I</option>
                     <option value="t2">Teacher II</option>
-                    <option value="t3">Teacher III</option>
-                    <option value="mt1">Master Teacher I</option>
-                    <option value="mt2">Master Teacher II</option>
-                    <option value="principal">Principal</option>
-                    <option value="other">Other Administrative Role</option>
-                  </select>
+                    </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-on-surface-variant">
+                    <span class="material-symbols-outlined">expand_more</span>
+                  </div>
                 </div>
               </div>
+              
+              <div>
+                <label class="block font-label-md text-label-md text-on-surface mb-base" for="schoolName">DepEd School</label>
+                <input class="w-full h-12 px-sm border border-outline rounded bg-surface focus:border-primary focus:ring-0 input-focus-ring transition-shadow text-on-surface font-body-md" id="schoolName" required="" type="text" placeholder="e.g. Las Piñas National High School"/>
+              </div>
             </div>
-          </section>
+          </section> 
 
           <!-- 3. Contact Details -->
           <section class="space-y-md">
@@ -463,19 +465,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 2. Fetch the user's data from the database and populate the form
     try {
         const response = await fetch(`http://127.0.0.1:8000/api/user/${userId}`);
-        if (response.ok) {
+       if (response.ok) {
             const userData = await response.json();
             
-            // Fill in the fields
+            // Fill in ALL fields
             document.getElementById("firstName").value = userData.firstName || "";
+            document.getElementById("middleName").value = userData.middleName || "";
             document.getElementById("lastName").value = userData.lastName || "";
+            document.getElementById("dob").value = userData.dob || "";
             document.getElementById("email").value = userData.email || "";
             document.getElementById("password").value = userData.password || "";
-            
-            if (userData.position) {
-                document.getElementById("position").value = userData.position;
-            }
-        }
+            if (userData.position) document.getElementById("position").value = userData.position;
+            document.getElementById("schoolName").value = userData.schoolName || "";
+            document.getElementById("phone1").value = userData.phone1 || "";
+            document.getElementById("phone2").value = userData.phone2 || "";
+            document.getElementById("blockLot").value = userData.blockLot || "";
+            document.getElementById("street").value = userData.street || "";
+            document.getElementById("village").value = userData.village || "";
+            document.getElementById("city").value = userData.city || "";
+            if (userData.region) document.getElementById("region").value = userData.region;
+            document.getElementById("zip").value = userData.zip || "";
+        } 
     } catch (error) {
         console.error("Error loading profile:", error);
     }
@@ -492,13 +502,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         submitBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-sm" style="animation: spin 1s linear infinite;">sync</span> Saving...`;
         submitBtn.disabled = true;
 
-        const updatedData = {
+       const updatedData = {
             firstName: document.getElementById('firstName').value,
+            middleName: document.getElementById('middleName').value,
             lastName: document.getElementById('lastName').value,
+            dob: document.getElementById('dob').value,
             email: document.getElementById('email').value,
             password: document.getElementById('password').value,
-            position: document.getElementById('position').value
-        };
+            position: document.getElementById('position').value,
+            schoolName: document.getElementById('schoolName').value,
+            phone1: document.getElementById('phone1').value,
+            phone2: document.getElementById('phone2').value,
+            blockLot: document.getElementById('blockLot').value,
+            street: document.getElementById('street').value,
+            village: document.getElementById('village').value,
+            city: document.getElementById('city').value,
+            region: document.getElementById('region').value,
+            zip: document.getElementById('zip').value,
+            country: document.getElementById('country').value
+        }; 
 
         try {
             // Send the PUT request to Python
