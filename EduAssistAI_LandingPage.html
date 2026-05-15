@@ -404,7 +404,7 @@
 </script>
 
 <script>
-    const BACKEND_URL = "http://127.0.0.1:8000/api/generate-dll";
+    const BACKEND_URL = "/api/generate-dll";
     const generateBtn = document.getElementById('generate-btn');
     const promptInput = document.getElementById('prompt-input');
 
@@ -558,7 +558,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 try {
                     // Send credentials to Python
-                    const response = await fetch("http://127.0.0.1:8000/api/login", {
+                    const response = await fetch("/api/login", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email: userEmail, password: userPassword })

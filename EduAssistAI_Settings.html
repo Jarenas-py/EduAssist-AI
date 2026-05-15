@@ -464,7 +464,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 2. Fetch the user's data from the database and populate the form
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/user/${userId}`);
+        const response = await fetch(`/api/user/${userId}`);
        if (response.ok) {
             const userData = await response.json();
             
@@ -524,7 +524,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         try {
             // Send the PUT request to Python
-            const updateResponse = await fetch(`http://127.0.0.1:8000/api/user/${userId}`, {
+            const updateResponse = await fetch(`/api/user/${userId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedData)

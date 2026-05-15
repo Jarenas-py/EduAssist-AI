@@ -13,6 +13,8 @@ from sqlalchemy.orm import Session
 from fastapi import Depends
 from database import engine, Base, get_db
 from models import User
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 
 Base.metadata.create_all(bind=engine)
 # Load environment variables
@@ -330,3 +332,11 @@ async def generate_dll(req: DocumentRequest, db: Session = Depends(get_db)):
         filename="EduAssist_Generated_DLL.docx", 
         media_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     )
+
+# Route the base URL directly to your Landing Page
+@app.get("/")
+def read_root():
+    return RedirectResponse(url="/EduAssistAI_LandingPage.html")
+
+# Serve all HTML, CSS, and JS files
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
