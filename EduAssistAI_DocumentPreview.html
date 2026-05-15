@@ -52,24 +52,33 @@
 </script>
 
 <style>
-  /* Sidebar slide transition */
+ /* Sidebar slide transition */
   #left-sidebar,
   #right-sidebar {
     overflow: hidden;
-    transition:
-      width     0.35s cubic-bezier(0.4, 0, 0.2, 1),
-      min-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-      max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity   0.25s ease;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  #left-sidebar.sidebar-collapsed,
-  #right-sidebar.sidebar-collapsed {
-    width: 0 !important;
-    min-width: 0 !important;
-    max-width: 0 !important;
-    opacity: 0;
+  /* Slide in on mobile */
+  #left-sidebar.mobile-open,
+  #right-sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
   }
+
+  /* Collapse width on desktop */
+  @media (min-width: 768px) {
+    #left-sidebar.sidebar-collapsed,
+    #right-sidebar.sidebar-collapsed {
+      width: 0 !important;
+      min-width: 0 !important;
+      max-width: 0 !important;
+      opacity: 0;
+      padding-left: 0;
+      padding-right: 0;
+      border: none;
+    }
+  } 
 
   /* ── Login Modal Overlay ── */
   #login-overlay {
@@ -194,7 +203,7 @@
 <!-- ══════════════════════════════════════════
      LEFT SIDEBAR
 ══════════════════════════════════════════ -->
-<aside id="left-sidebar" class="w-64 h-screen bg-surface-container-low border-r border-outline-variant/30 flex flex-col shrink-0 z-50">
+<aside id="left-sidebar" class="w-64 h-screen bg-surface-container-low border-r border-outline-variant/30 flex flex-col shrink-0 z-[40] md:z-50 absolute md:relative -translate-x-full md:translate-x-0 transition-transform">
   <div class="h-16 px-6 flex items-center">
     <span class="font-label-md text-on-surface-variant select-none"></span>
   </div>
@@ -222,11 +231,10 @@
 <!-- ══════════════════════════════════════════
      MAIN CONTENT
 ══════════════════════════════════════════ -->
-<main class="flex-1 flex flex-col h-screen relative">
-
+<main class="flex-1 flex flex-col h-screen relative min-w-0">
   <!-- Top App Bar -->
-  <header class="sticky top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm border-b border-outline-variant/30">
-    <div class="flex justify-between items-center px-6 h-16 w-full mx-auto">
+ <header class="sticky top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm border-b border-outline-variant/30">
+    <div class="flex justify-between items-center px-4 md:px-6 h-16 w-full mx-auto"> 
 
       <div class="flex items-center gap-2">
         <button id="left-toggle"
@@ -255,13 +263,11 @@
   </header>
 
   <!-- Split View -->
-  <div class="flex-1 flex flex-col md:flex-row overflow-hidden bg-surface-container-lowest">
+  <div class="flex-1 flex flex-col md:flex-row overflow-hidden bg-surface-container-lowest relative min-w-0">
 
-    <!-- Document Preview Section -->
-    <section class="flex-1 flex flex-col h-full border-r border-outline-variant/30 relative">
+    <section class="flex-1 flex flex-col h-full border-r border-outline-variant/30 relative min-w-0">
 
-      <!-- Document Header -->
-      <div class="h-16 flex items-center justify-between px-margin-desktop border-b border-outline-variant/30 bg-surface-container-lowest shrink-0">
+      <div class="h-16 flex items-center justify-between px-4 lg:px-margin-desktop border-b border-outline-variant/30 bg-surface-container-lowest shrink-0 relative z-20">
 
         <div class="flex items-center gap-sm">
           <a href="EduAssistAI_LandingPage.html">
@@ -269,14 +275,14 @@
             <span class="material-symbols-outlined">arrow_back</span>
           </button></a>
           <div>
-            <h2 class="font-h2 text-h2 text-on-surface truncate max-w-md">Generated Document</h2>
+            <h2 class="font-h2 text-h2 text-on-surface truncate max-w-[130px] sm:max-w-md">Generated Document</h2>
           </div>
         </div>
 
-        <div class="flex items-center gap-md">
-          <button id="download-btn" class="flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-full font-label-md text-label-md transition-colors shadow-sm">
+        <div class="flex items-center gap-2 md:gap-md">
+          <button id="download-btn" class="flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container px-3 md:px-4 py-2 rounded-full font-label-md text-label-md transition-colors shadow-sm">
             <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">download</span>
-            Download as Word
+            <span class="hidden sm:inline">Download as Word</span>
           </button>
 
           <button id="right-toggle"
@@ -288,15 +294,15 @@
       </div>
 
       <!-- Document Canvas -->
-      <div class="flex-1 overflow-y-auto p-4 md:p-margin-desktop bg-surface-container-low flex justify-center pb-20">
-        <div id="document-canvas" class="w-full max-w-[850px] mb-12"></div> 
+      <div class="flex-1 overflow-auto p-4 md:p-margin-desktop bg-surface-container-low pb-20">
+        <div id="document-canvas" class="w-full max-w-[850px] mx-auto mb-12"></div> 
       </div>
     </section>
 
     <!-- ══════════════════════════════════════════
          RIGHT SIDEBAR
     ══════════════════════════════════════════ -->
-    <aside id="right-sidebar" class="flex-1 lg:w-[30%] lg:min-w-[350px] lg:max-w-[450px] bg-surface flex flex-col h-full border-l border-outline-variant/30 shadow-[-4px_0_12px_rgba(0,0,0,0.02)]">
+    <aside id="right-sidebar" class="w-[85%] sm:w-[350px] lg:w-[30%] lg:min-w-[350px] lg:max-w-[450px] bg-surface flex flex-col h-[calc(100%-64px)] md:h-full border-l border-outline-variant/30 shadow-[-4px_0_12px_rgba(0,0,0,0.02)] absolute md:relative right-0 bottom-0 z-[10] md:z-auto translate-x-full md:translate-x-0 transition-transform">
 
       <!-- Chat Header -->
       <div class="h-16 px-4 flex items-center border-b border-outline-variant/30 bg-surface-container-lowest shrink-0">
@@ -333,46 +339,29 @@
      SCRIPTS
 ══════════════════════════════════════════ -->
 <script>
-  /* ── Sidebar toggles ── */
+ /* ── Sidebar toggles ── */
   (function () {
-    function lockWidth(el) {
-      el.style.width    = el.offsetWidth + 'px';
-      el.style.minWidth = el.offsetWidth + 'px';
-      el.style.maxWidth = el.offsetWidth + 'px';
-    }
-
     function setupToggle(toggleBtnId, sidebarId) {
       const btn     = document.getElementById(toggleBtnId);
       const sidebar = document.getElementById(sidebarId);
       if (!btn || !sidebar) return;
 
       const icon = btn.querySelector('.toggle-icon');
-      let isOpen = true;
 
       btn.addEventListener('click', function () {
-        if (isOpen) {
-          lockWidth(sidebar);
-          requestAnimationFrame(function () {
-            sidebar.classList.add('sidebar-collapsed');
-            icon.classList.add('rotated');
-          });
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+          sidebar.classList.toggle('mobile-open');
         } else {
-          sidebar.classList.remove('sidebar-collapsed');
-          icon.classList.remove('rotated');
-          sidebar.addEventListener('transitionend', function clearInline() {
-            sidebar.style.width    = '';
-            sidebar.style.minWidth = '';
-            sidebar.style.maxWidth = '';
-            sidebar.removeEventListener('transitionend', clearInline);
-          });
+          sidebar.classList.toggle('sidebar-collapsed');
         }
-        isOpen = !isOpen;
+        if (icon) icon.classList.toggle('rotated');
       });
     }
 
     setupToggle('left-toggle',  'left-sidebar');
     setupToggle('right-toggle', 'right-sidebar');
-  })();
+  })(); 
 
   /* ── Login Modal ── */
   (function () {
@@ -538,7 +527,10 @@
 
             try {
                 // Build the payload
-                const requestBody = { prompt: newPrompt };
+                const requestBody = { 
+                    prompt: newPrompt,
+                    template_type: sessionStorage.getItem("template_type") || "dll"
+                };
                 
                 // If the user is logged in, attach their ID
                 const currentUserId = localStorage.getItem("eduassist_user_id");

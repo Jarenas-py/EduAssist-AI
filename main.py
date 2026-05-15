@@ -35,6 +35,7 @@ model = genai.GenerativeModel('gemini-2.5-flash')
 
 class DocumentRequest(BaseModel):
     prompt: str
+    template_type: Optional[str] = "dll" 
     user_id: Optional[int] = None
     
 class UserRegister(BaseModel):
@@ -170,19 +171,49 @@ async def generate_dll(req: DocumentRequest, db: Session = Depends(get_db)):
         teacher_full_name = "Juan Dela Cruz"
         school_name = "Las Piñas National High School"
 
-    gemini_prompt = f"""
-    You are an expert DepEd Philippines teacher assistant. 
-    Based on this context: "{req.prompt}", generate a Banghay-Aralin (Daily Lesson Log).
-    All content should be in Filipino (Tagalog) as per standard DepEd format, except when English is strictly required by the subject.
-    
-    You MUST respond with a raw JSON object containing EXACTLY these keys:
-    "subject_name", "grade_level", "quarter", "teaching_week", "teaching_day", "teaching_date",
-    "content_standards", "performance_standards", "learning_objectives", "values_developed", 
-    "learning_skills", "content", "integration", "prior_knowledge", "lesson_purpose", 
-    "lesson_development", "generalization", "evaluation", "reflection".
-    
-    AND an array called "annotations" containing objects with keys: "col1", "col2", "col3", "col4".
-    """
+    if req.template_type == "narrative":
+        gemini_prompt = f"""
+        You are an expert DepEd Philippines teacher assistant. 
+        Based on this context: "{req.prompt}", generate a Narrative Report.
+        
+        You MUST respond with a raw JSON object containing EXACTLY these keys:
+        "term_year", "session_topic", "session_speaker", "date_time", "session_venue", "narrative_report",
+        AND an array called "attendance" containing objects with EXACTLY these keys: "attendee_name", "attendee_position".
+        """
+        template_file = "DEPED_docs/NarrativeReport_Template.docx"
+
+    elif req.template_type == "proposal":
+        gemini_prompt = f"""
+        You are an expert DepEd Philippines teacher assistant. 
+        Based on this context: "{req.prompt}", generate an Activity Proposal.
+        
+        You MUST respond with a raw JSON object containing EXACTLY these keys:
+        "proposal_title", "activity_title", "proposal_rationale", "proposal_objectives", 
+        "proposal_data", "proposal_activities", "proposal_venue", "proposal_participants", 
+        "proposal_output", "proposal_monitoring", "endorsement_date", "principal_name", 
+        "principal_position", "term_year", "total_amount",
+        AND 4 arrays:
+        "pre_implementation" (objects with keys: "item_date", "item_activity", "item_platform"),
+        "implementation" (objects with keys: "item_date", "item_activity", "item_venue"),
+        "post_implementation" (objects with keys: "item_date", "item_activity", "item_platform"),
+        "funding" (objects with keys: "item_details", "item_amount", "item_source").
+        """
+        template_file = "DEPED_docs/Proposal_Template.docx"
+        
+    else: # Default to DLL
+        gemini_prompt = f"""
+        You are an expert DepEd Philippines teacher assistant. 
+        Based on this context: "{req.prompt}", generate a Banghay-Aralin (Daily Lesson Log).
+        All content should be in Filipino (Tagalog) as per standard DepEd format.
+        
+        You MUST respond with a raw JSON object containing EXACTLY these keys:
+        "subject_name", "grade_level", "quarter", "teaching_week", "teaching_day", "teaching_date",
+        "content_standards", "performance_standards", "learning_objectives", "values_developed", 
+        "learning_skills", "content", "integration", "prior_knowledge", "lesson_purpose", 
+        "lesson_development", "generalization", "evaluation", "reflection".
+        AND an array called "annotations" containing objects with keys: "col1", "col2", "col3", "col4".
+        """
+        template_file = "DEPED_docs/DLL_Template.docx"
     
     try:
         print("⏳ Asking Gemini Pro to generate lesson plan... (This may take 10-15 seconds)")
@@ -212,41 +243,81 @@ async def generate_dll(req: DocumentRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"AI Generation Failed: {str(e)}")
 
     try:
-        print("⏳ Loading Word Template...")
-        doc = DocxTemplate("DEPED_docs/DLL_Template.docx")
+        print(f"⏳ Loading Word Template: {template_file}...")
+        doc = DocxTemplate(template_file)
         print("✅ Template loaded!")
     except Exception as e:
-        print(f"❌ TEMPLATE ERROR: {str(e)}")
-        raise HTTPException(status_code=500, detail="Template file not found on server.")
+        raise HTTPException(status_code=500, detail="Template file not found on server.") 
 
     # Map the AI data to your Jinja tags
-    context = {
-        "subject_name": ai_data.get("subject_name", ""),
-        "grade_level": ai_data.get("grade_level", ""),
-        "quarter": ai_data.get("quarter", ""),
-        "teaching_week": ai_data.get("teaching_week", ""),
-        "teaching_day": ai_data.get("teaching_day", ""),
-        "teaching_date": ai_data.get("teaching_date", ""),
-        
-        "content_standards": RichText(ai_data.get("content_standards", "")),
-        "performance_standards": RichText(ai_data.get("performance_standards", "")),
-        "learning_objectives": RichText(ai_data.get("learning_objectives", "")),
-        "values_developed": RichText(ai_data.get("values_developed", "")),
-        "learning_skills": RichText(ai_data.get("learning_skills", "")),
-        "content": RichText(ai_data.get("content", "")),
-        "integration": RichText(ai_data.get("integration", "")),
-        
-        "prior_knowledge": RichText(ai_data.get("prior_knowledge", "")),
-        "lesson_purpose": RichText(ai_data.get("lesson_purpose", "")),
-        "lesson_development": RichText(ai_data.get("lesson_development", "")),
-        "generalization": RichText(ai_data.get("generalization", "")),
-        "evaluation": RichText(ai_data.get("evaluation", "")),
-        "reflection": RichText(ai_data.get("reflection", "")),
-        
-        "annotations": ai_data.get("annotations", []),
-        "teacher_name": teacher_full_name,
-        "school_name": school_name
-    }
+    first_name_db = user_profile.first_name if req.user_id else "Juan"
+    last_name_db = user_profile.last_name if req.user_id else "Dela Cruz"
+    position_db = user_profile.position if req.user_id else "Teacher I"
+
+    if req.template_type == "narrative":
+        context = {
+            "term_year": ai_data.get("term_year", ""),
+            "session_topic": ai_data.get("session_topic", ""),
+            "session_speaker": ai_data.get("session_speaker", ""),
+            "date_time": ai_data.get("date_time", ""),
+            "session_venue": ai_data.get("session_venue", ""),
+            "attendance": ai_data.get("attendance", []),
+            "narrative_report": RichText(ai_data.get("narrative_report", "")),
+            "first_name": first_name_db,
+            "last_name": last_name_db,
+            "position": position_db
+        }
+    elif req.template_type == "proposal":
+        context = {
+            "proposal_title": ai_data.get("proposal_title", ""),
+            "activity_title": ai_data.get("activity_title", ""),
+            "proposal_rationale": RichText(ai_data.get("proposal_rationale", "")),
+            "proposal_objectives": RichText(ai_data.get("proposal_objectives", "")),
+            "proposal_data": ai_data.get("proposal_data", ""),
+            "proposal_activities": ai_data.get("proposal_activities", ""),
+            "proposal_venue": ai_data.get("proposal_venue", ""),
+            "proposal_participants": RichText(ai_data.get("proposal_participants", "")),
+            "proposal_output": RichText(ai_data.get("proposal_output", "")),
+            "pre_implementation": ai_data.get("pre_implementation", []),
+            "implementation": ai_data.get("implementation", []),
+            "post_implementation": ai_data.get("post_implementation", []),
+            "funding": ai_data.get("funding", []),
+            "total_amount": ai_data.get("total_amount", ""),
+            "proposal_monitoring": RichText(ai_data.get("proposal_monitoring", "")),
+            "endorsement_date": ai_data.get("endorsement_date", ""),
+            "principal_name": ai_data.get("principal_name", ""),
+            "principal_position": ai_data.get("principal_position", ""),
+            "term_year": ai_data.get("term_year", ""),
+            "first_name": first_name_db,
+            "last_name": last_name_db,
+            "position": position_db,
+            "school_name": school_name
+        }
+    else: # DLL context
+        context = {
+            "subject_name": ai_data.get("subject_name", ""),
+            "grade_level": ai_data.get("grade_level", ""),
+            "quarter": ai_data.get("quarter", ""),
+            "teaching_week": ai_data.get("teaching_week", ""),
+            "teaching_day": ai_data.get("teaching_day", ""),
+            "teaching_date": ai_data.get("teaching_date", ""),
+            "content_standards": RichText(ai_data.get("content_standards", "")),
+            "performance_standards": RichText(ai_data.get("performance_standards", "")),
+            "learning_objectives": RichText(ai_data.get("learning_objectives", "")),
+            "values_developed": RichText(ai_data.get("values_developed", "")),
+            "learning_skills": RichText(ai_data.get("learning_skills", "")),
+            "content": RichText(ai_data.get("content", "")),
+            "integration": RichText(ai_data.get("integration", "")),
+            "prior_knowledge": RichText(ai_data.get("prior_knowledge", "")),
+            "lesson_purpose": RichText(ai_data.get("lesson_purpose", "")),
+            "lesson_development": RichText(ai_data.get("lesson_development", "")),
+            "generalization": RichText(ai_data.get("generalization", "")),
+            "evaluation": RichText(ai_data.get("evaluation", "")),
+            "reflection": RichText(ai_data.get("reflection", "")),
+            "annotations": ai_data.get("annotations", []),
+            "teacher_name": teacher_full_name,
+            "school_name": school_name
+        }
 
     print("⏳ Injecting AI data into Word Document...")
     doc.render(context)

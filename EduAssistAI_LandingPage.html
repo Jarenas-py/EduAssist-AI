@@ -272,7 +272,7 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
 <!-- Template Card 1 -->
-<div class="bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
+<div data-template="dll" class="template-card ring-2 ring-primary bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
 <div class="absolute top-0 right-0 w-24 h-24 bg-primary-container/20 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
 <div class="bg-primary-container text-on-primary-container w-12 h-12 rounded-lg flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
 <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">menu_book</span>
@@ -281,7 +281,7 @@
 <p class="font-body-md text-body-md text-on-surface-variant flex-grow">Standard DepEd format with sections for Objectives, Content, Learning Resources, and Procedures.</p>
 </div>
 <!-- Template Card 2 -->
-<div class="bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
+<div data-template="narrative" class="template-card ring-0 ring-primary bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
 <div class="absolute top-0 right-0 w-24 h-24 bg-secondary-container/20 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
 <div class="bg-secondary-container text-on-secondary-container w-12 h-12 rounded-lg flex items-center justify-center mb-md group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
 <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">description</span>
@@ -290,7 +290,7 @@
 <p class="font-body-md text-body-md text-on-surface-variant flex-grow">Structured format for summarizing events, seminars, or quarterly accomplishments with visual placeholders.</p>
 </div>
 <!-- Template Card 3 -->
-<div class="bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
+<div data-template="proposal" class="template-card ring-0 ring-primary bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
 <div class="absolute top-0 right-0 w-24 h-24 bg-surface-tint/10 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
 <div class="bg-surface-container-highest text-primary w-12 h-12 rounded-lg flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
 <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">assignment</span>
@@ -299,7 +299,7 @@
 <p class="font-body-md text-body-md text-on-surface-variant flex-grow">Formal template detailing rationale, objectives, methodology, and budget requirements for school events.</p>
 </div>
 <!-- Template Card 4 -->
-<div class="bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
+<div data-template="saln" class="template-card ring-0 ring-primary bg-surface rounded-xl border border-surface-variant p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative overflow-hidden">
 <div class="absolute top-0 right-0 w-24 h-24 bg-tertiary-container/20 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
 <div class="bg-tertiary-container text-on-tertiary-container w-12 h-12 rounded-lg flex items-center justify-center mb-md group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
 <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">account_balance</span>
@@ -417,6 +417,40 @@
         });
     }
 
+    let selectedTemplate = "dll"; // Default selection
+    
+    // Select all cards and add click listeners
+    const templateCards = document.querySelectorAll('.template-card');
+    const promptInputArea = document.getElementById('prompt-input');
+
+    templateCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Remove the blue ring from all cards
+            templateCards.forEach(c => {
+                c.classList.remove('ring-2');
+                c.classList.add('ring-0');
+            });
+            
+            // Add the blue ring to the clicked card
+            card.classList.remove('ring-0');
+            card.classList.add('ring-2');
+            
+            // Update the selected template variable
+            selectedTemplate = card.getAttribute('data-template');
+            
+            // Update the text box placeholder dynamically
+            if (selectedTemplate === 'dll') {
+                promptInputArea.placeholder = "e.g., 'Draft a Daily Lesson Log for Grade 8 Science focusing on the Law of Inertia...'";
+            } else if (selectedTemplate === 'narrative') {
+                promptInputArea.placeholder = "e.g., 'Write a Narrative Report about the recent Buwan ng Wika celebration highlighting student activities...'";
+            } else if (selectedTemplate === 'proposal') {
+                promptInputArea.placeholder = "e.g., 'Create an Activity Proposal for a school-wide clean-up drive next Friday...'";
+            } else {
+                promptInputArea.placeholder = "Describe the document you want to generate...";
+            }
+        });
+    });
+
     generateBtn.addEventListener('click', async (e) => {
         e.preventDefault(); 
         
@@ -432,7 +466,10 @@
 
         try {
             // Build the payload
-            const requestBody = { prompt: promptText };
+            const requestBody = { 
+                prompt: promptText,
+                template_type: selectedTemplate
+            };
             
             // If the user is logged in, attach their ID
             const currentUserId = localStorage.getItem("eduassist_user_id");
@@ -453,6 +490,7 @@
             
             sessionStorage.setItem("draftDocument", base64data);
             sessionStorage.setItem("documentContext", promptText);
+            sessionStorage.setItem("template_type", selectedTemplate);
             
             window.location.href = "EduAssistAI_DocumentPreview.html";
             
