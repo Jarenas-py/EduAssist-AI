@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>EduAssist AI - Instructions</title>
+    <link rel="icon" type="image/png" href="assets/EduAssistAI_Logo.png">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#a8b8ff",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#003c70",
+                        "outline": "#757684",
+                        "on-surface": "#121c28",
+                        "outline-variant": "#c4c5d5",
+                        "on-secondary-fixed": "#001c39",
+                        "on-background": "#121c28",
+                        "surface": "#f8f9ff",
+                        "tertiary": "#2d363a",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#3755c3",
+                        "surface-container-highest": "#d9e3f4",
+                        "inverse-primary": "#b8c4ff",
+                        "tertiary-fixed": "#dbe4ea",
+                        "on-secondary-fixed-variant": "#004883",
+                        "surface-container-high": "#dfe9fa",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#173bab",
+                        "surface-variant": "#d9e3f4",
+                        "on-primary-fixed": "#001453",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "inverse-surface": "#27313e",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "primary": "#00288e",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#64a8fe",
+                        "on-tertiary-container": "#b3bcc2",
+                        "on-tertiary-fixed": "#141d21",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#444653",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#eef4ff",
+                        "primary-fixed": "#dde1ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-container": "#434c51",
+                        "surface-dim": "#d1dbec",
+                        "secondary": "#0060ac",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "primary-container": "#1e40af",
+                        "background": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#3f484d",
+                        "tertiary-fixed-dim": "#bfc8ce",
+                        "secondary-fixed": "#d4e3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "2rem",
+                        "2xl": "3rem",
+                        "md": "1rem",
+                        "lg": "1.5rem",
+                        "gutter": "1rem",
+                        "margin-desktop": "2.5rem",
+                        "base": "4px",
+                        "xs": "0.25rem",
+                        "margin-mobile": "1rem",
+                        "sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Public Sans"],
+                        "h2": ["Public Sans"],
+                        "caption": ["Public Sans"],
+                        "h1": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["0.875rem", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "h2": ["1.5rem", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "caption": ["0.75rem", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "h1": ["2.25rem", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["1.125rem", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["1rem", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col items-center overflow-x-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+
+    <!-- TopAppBar -->
+    <header class="sticky top-0 w-full z-50 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md shadow-sm dark:shadow-none flex justify-between items-center px-margin-desktop h-16 max-w-[1280px] mx-auto">
+        <div class="flex items-center gap-sm cursor-pointer">
+            <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+            <a href="EduAssistAI_LandingPage.html"><span class="font-h1 text-h2 font-bold text-primary dark:text-inverse-primary tracking-tight">EduAssist AI</span></a>
+        </div>
+        
+        <!-- Back Button -->
+        <div class="flex items-center">
+            <a href="EduAssistAI_LandingPage.html" class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all font-label-md text-sm shadow-sm active:scale-95">
+                <span class="material-symbols-outlined text-lg">home</span>
+                <span class="hidden sm:inline">Back to Generator</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-[800px] mx-auto px-margin-mobile md:px-margin-desktop py-xl flex flex-col gap-xl">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-md">
+            <h1 class="font-h1 text-4xl text-on-background tracking-tight mb-sm">Teacher's Guide to EduAssist AI</h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">
+                Follow these simple instructions to connect your account and start generating DepEd-compliant documents instantly.
+            </p>
+        </div>
+
+        <!-- Section 1: API Key Guide -->
+        <section class="bg-surface rounded-xl border border-surface-variant shadow-[0px_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
+            <div class="bg-primary-container text-on-primary-container px-lg py-md border-b border-surface-variant flex items-center gap-sm">
+                <span class="material-symbols-outlined text-2xl">vpn_key</span>
+                <h2 class="font-h2 text-xl font-bold">1. How to Get a Google Gemini API Key</h2>
+            </div>
+            
+            <div class="p-lg space-y-md">
+                <p class="text-on-surface">
+                    An <strong>API Key</strong> is simply a secure password that allows EduAssist AI to talk to Google's intelligent systems on your behalf. It is completely free to get one.
+                </p>
+                
+                <ol class="list-decimal list-inside space-y-4 ml-2 text-on-surface-variant font-body-md">
+                    <li>Go to the <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-primary font-semibold hover:underline">Google AI Studio website</a>.</li>
+                    <li>Sign in using your personal or DepEd Google account.</li>
+                    <li>Click "Dashboard" on the left sidebar then click API Key on the left sidebar.</li>
+                    <li>Click <strong>Create API Key</strong> and follow the instructions.</li>
+                    <li>Click <strong>"Copy Key"</strong> after the key has been generated and paste it below the input prompt of EduAssist AI.</li>
+                </ol>
+
+                <div class="bg-surface-container-low border-l-4 border-secondary p-4 mt-md rounded-r-lg">
+                    <p class="font-label-md text-secondary-container-on font-semibold flex items-center gap-1 mb-1">
+                        <span class="material-symbols-outlined text-sm">lock</span> Secure & Private
+                    </p>
+                    <p class="text-sm text-on-surface-variant">
+                        When you paste this key into EduAssist AI, it is stored securely inside your own web browser. We never see it, and it is never saved to our servers.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Using the App -->
+        <section class="bg-surface rounded-xl border border-surface-variant shadow-[0px_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
+            <div class="bg-secondary-container text-on-secondary-container px-lg py-md border-b border-surface-variant flex items-center gap-sm">
+                <span class="material-symbols-outlined text-2xl">edit_document</span>
+                <h2 class="font-h2 text-xl font-bold">2. Generating Your Documents</h2>
+            </div>
+            
+            <div class="p-lg space-y-6">
+                <div class="flex items-start gap-md">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 font-bold text-on-surface">1</div>
+                    <div>
+                        <h3 class="font-h2 text-lg text-on-background">Select a Template</h3>
+                        <p class="text-on-surface-variant mt-1">Click on the card for the document you need (e.g., Daily Lesson Log, Narrative Report, Activity Proposal). The outline turns blue when selected.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-md">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 font-bold text-on-surface">2</div>
+                    <div>
+                        <h3 class="font-h2 text-lg text-on-background">Describe Your Topic</h3>
+                        <p class="text-on-surface-variant mt-1">In the large text box, type a brief description of what you need. Provide the subject, grade level, topic, and any specific objectives.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-md">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 font-bold text-on-surface">3</div>
+                    <div>
+                        <h3 class="font-h2 text-lg text-on-background">Paste Your Key & Generate</h3>
+                        <p class="text-on-surface-variant mt-1">Paste the API Key you copied earlier into the designated box, then click "Generate Document". The AI will take roughly 10-15 seconds to build your file.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-md">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 font-bold text-on-surface">4</div>
+                    <div>
+                        <h3 class="font-h2 text-lg text-on-background">Refine and Download</h3>
+                        <p class="text-on-surface-variant mt-1">On the preview screen, you can chat with the AI using the right sidebar to make specific changes (e.g., <em>"Make the learning objectives shorter"</em>). When satisfied, click "Download as Word".</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Important Formatting Notices -->
+        <section class="bg-error-container text-on-error-container rounded-xl border border-error/20 shadow-[0px_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
+            <div class="px-lg py-md border-b border-error/20 flex items-center gap-sm">
+                <span class="material-symbols-outlined text-2xl">warning</span>
+                <h2 class="font-h2 text-xl font-bold">3. Important Document Notices</h2>
+            </div>
+            
+            <div class="p-lg space-y-md">
+                <h3 class="font-bold text-lg">What does "---" mean?</h3>
+                <p class="font-body-md text-on-error-container/80">
+                    When reviewing your downloaded Microsoft Word document, you will occasionally see the symbol <strong>"---"</strong> placed in areas like Principal names, specific dates, or supervisor signatures. 
+                </p>
+                <p class="font-body-md text-on-error-container/80">
+                    This is completely normal. <strong>"---" indicates a blank space where you must manually enter your specific school information.</strong> Because EduAssist AI does not know who your Principal or District Supervisor is, it intentionally leaves these fields blank for you to fill out manually outside of the scope of the app.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-surface border-t border-surface-variant py-xl mt-auto">
+        <div class="max-w-[1280px] mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md">
+            <div class="flex items-center gap-xs">
+                <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                <span class="font-h2 text-base font-bold text-on-surface"><br></span>
+            </div>
+            <div class="font-caption text-caption text-outline">
+                Published by Jarenas-py
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
