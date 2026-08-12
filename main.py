@@ -39,7 +39,7 @@ async def generate_dll(req: DocumentRequest):
     
     # Configure Gemini using the end-user's provided key dynamically
     genai.configure(api_key=req.api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-2.5-flash')
     
     # Default fallback values for guest mode
     teacher_full_name = "Juan Dela Cruz"
